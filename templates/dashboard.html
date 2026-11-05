@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1 class="mb-4">Performance Dashboard</h1>
+<div class="row g-3">
+ {% for label,value in [('Students',stats.students),('Subjects',stats.subjects),('Average',stats.average|string + '%'),('Pass rate',stats.pass_rate|string + '%')] %}
+ <div class="col-md-3"><div class="card metric-card"><div class="card-body"><p class="text-muted mb-1">{{ label }}</p><h2>{{ value }}</h2></div></div></div>
+ {% endfor %}
+</div>
+<div class="card mt-4"><div class="card-body"><h5>Welcome</h5><p class="mb-0">Manage student records, enter assessment marks and explore class performance from one place.</p></div></div>
+{% endblock %}

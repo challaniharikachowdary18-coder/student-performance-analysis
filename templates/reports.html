@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% block content %}
+<h1>Performance report</h1><p class="text-muted">Student ranking is based on average percentage across recorded assessments.</p>
+<h3>Top performers</h3><table class="table table-striped"><thead><tr><th>Rank</th><th>Roll no.</th><th>Name</th><th>Section</th><th>Average %</th></tr></thead><tbody>
+{% for x in students_report[:5] %}<tr><td>{{ loop.index }}</td><td>{{ x.roll_no }}</td><td>{{ x.name }}</td><td>{{ x.section }}</td><td>{{ x.average_percentage }}</td></tr>{% else %}<tr><td colspan="5">No report data yet.</td></tr>{% endfor %}
+</tbody></table><h3 class="mt-4">Subject summary</h3><table class="table table-striped"><thead><tr><th>Subject</th><th>Average %</th><th>Pass %</th></tr></thead><tbody>{% for x in summaries %}<tr><td>{{ x.subject_name }}</td><td>{{ x.average_percentage }}</td><td>{{ x.pass_percentage }}</td></tr>{% endfor %}</tbody></table>
+<h3 class="mt-4">Section-wise summary</h3>
+<table class="table table-striped"><thead><tr><th>Section</th><th>Students</th><th>Average %</th><th>Pass %</th></tr></thead><tbody>
+{% for x in sections %}<tr><td>{{ x.section }}</td><td>{{ x.student_count }}</td><td>{{ x.average_percentage }}</td><td>{{ x.pass_percentage }}</td></tr>
+{% else %}<tr><td colspan="4">No section summary available.</td></tr>{% endfor %}
+</tbody></table>
+<h3 class="mt-4">Student-wise subject results</h3>
+<div class="table-responsive"><table class="table table-striped"><thead><tr>
+<th>Roll no.</th><th>Student</th><th>Subject</th><th>Total</th><th>Average</th><th>Percentage</th><th>Grade</th><th>Status</th>
+</tr></thead><tbody>
+{% for x in detailed %}<tr><td>{{ x.roll_no }}</td><td>{{ x.name }}</td><td>{{ x.subject_name }}</td>
+<td>{{ x.total }} / {{ x.max_total }}</td><td>{{ x.average }}</td><td>{{ x.percentage }}%</td><td>{{ x.grade }}</td><td>{{ x.status }}</td></tr>
+{% else %}<tr><td colspan="8">No detailed results available.</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block content %}
+<h1>Edit assessment mark</h1>
+<form method="post" class="form-card row g-3">
+<div class="col-md-3"><label class="form-label">Student</label><select class="form-select" name="student_id" required>{% for s in students %}<option value="{{ s.student_id }}" {% if s.roll_no == mark.roll_no %}selected{% endif %}>{{ s.roll_no }} — {{ s.name }}</option>{% endfor %}</select></div>
+<div class="col-md-3"><label class="form-label">Subject</label><select class="form-select" name="subject_id" required>{% for s in subjects %}<option value="{{ s.subject_id }}" {% if s.subject_name == mark.subject_name %}selected{% endif %}>{{ s.subject_name }} (max {{ s.max_marks }})</option>{% endfor %}</select></div>
+<div class="col-md-3"><label class="form-label">Assessment</label><input class="form-control" name="assessment" value="{{ mark.assessment }}" required></div>
+<div class="col-md-2"><label class="form-label">Marks</label><input class="form-control" type="number" min="0" max="{{ mark.max_marks }}" step="0.01" name="marks_obtained" value="{{ mark.marks_obtained }}" required></div>
+<div class="col-md-12"><button class="btn btn-primary">Update marks</button> <a class="btn btn-light" href="{{ url_for('marks') }}">Cancel</a></div>
+</form>{% endblock %}

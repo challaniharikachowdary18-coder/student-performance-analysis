@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block content %}
+<h1>Subjects</h1>
+<form method="post" action="{{ url_for('add_subject') }}" class="row g-2 form-card mb-4">
+<div class="col-md-4"><input class="form-control" name="subject_name" placeholder="Subject name" required></div>
+<div class="col-md-3"><input class="form-control" type="number" min="1" step="0.01" name="max_marks" placeholder="Maximum marks" required></div>
+<div class="col-md-3"><input class="form-control" type="number" min="0" step="0.01" name="pass_marks" placeholder="Passing marks" required></div>
+<div class="col-md-2"><button class="btn btn-primary w-100">Add</button></div></form>
+<table class="table table-striped"><thead><tr><th>Subject</th><th>Maximum</th><th>Pass marks</th><th></th></tr></thead><tbody>
+{% for s in subjects %}<tr><td>{{ s.subject_name }}</td><td>{{ s.max_marks }}</td><td>{{ s.pass_marks }}</td><td><form method="post" action="{{ url_for('delete_subject',subject_id=s.subject_id) }}" onsubmit="return confirmDelete()"><button class="btn btn-sm btn-outline-danger">Delete</button></form></td></tr>{% else %}<tr><td colspan="4">No subjects yet.</td></tr>{% endfor %}
+</tbody></table>{% endblock %}

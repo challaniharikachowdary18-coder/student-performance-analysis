@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block content %}
+<h1>Analytics</h1>
+<form method="get" class="form-card mb-4 row g-2 align-items-end"><div class="col-auto"><label class="form-label">At-risk threshold (%)</label><input class="form-control" type="number" min="0" max="100" step="1" name="threshold" value="{{ threshold }}"></div><div class="col-auto"><button class="btn btn-primary">Apply</button></div></form>
+<h3>Subject summary</h3><div class="table-responsive"><table class="table table-striped"><thead><tr><th>Subject</th><th>Average %</th><th>Median %</th><th>Lowest %</th><th>Highest %</th><th>Pass %</th></tr></thead><tbody>
+{% for x in summaries %}<tr><td>{{ x.subject_name }}</td><td>{{ x.average_percentage }}</td><td>{{ x.median_percentage }}</td><td>{{ x.min_percentage }}</td><td>{{ x.max_percentage }}</td><td>{{ x.pass_percentage }}</td></tr>{% else %}<tr><td colspan="6">Add marks to see analytics.</td></tr>{% endfor %}
+</tbody></table></div>
+<h3 class="mt-4">Student performance</h3><div class="table-responsive"><table class="table table-striped"><thead><tr><th>Roll no.</th><th>Name</th><th>Section</th><th>Average %</th><th>Support status</th></tr></thead><tbody>
+{% for x in students_report %}<tr><td>{{ x.roll_no }}</td><td>{{ x.name }}</td><td>{{ x.section }}</td><td>{{ x.average_percentage }}</td><td>{{ x.status }}</td></tr>{% else %}<tr><td colspan="5">No marks available.</td></tr>{% endfor %}
+</tbody></table></div>
+<div class="row g-3 mt-2"><div class="col-md-6"><div class="card p-2"><img class="img-fluid" src="{{ url_for('static',filename='charts/subject_averages.png') }}" alt="Subject average chart" onerror="this.style.display='none'"></div></div><div class="col-md-6"><div class="card p-2"><img class="img-fluid" src="{{ url_for('static',filename='charts/pass_percentages.png') }}" alt="Pass percentage chart" onerror="this.style.display='none'"></div></div></div>
+{% endblock %}
